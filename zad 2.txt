@@ -1,0 +1,42 @@
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+
+
+
+
+
+    union {
+    uint16_t pr;
+
+    struct {
+    uint16_t b1 : 1;
+    uint16_t     : 14;
+    uint16_t  b16   :1;
+    };
+
+
+    }abc;
+
+void swap(uint16_t * n);
+int main()
+{
+    uint16_t n = 1456;
+
+    swap(&n);
+
+
+    return 0;
+
+}
+
+void swap(uint16_t * n) {
+
+    abc.pr = *n;
+    uint16_t p1 = abc.b1;
+    abc.b1 = abc.b16;
+    abc.b16 = p1;
+    *n = abc.pr;
+
+}
+

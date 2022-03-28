@@ -1,0 +1,76 @@
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+
+
+    struct FLOAT {
+
+        union   {
+
+            float fValue;
+
+            struct {
+            unsigned int mantisa: 23;
+            unsigned int exponent: 8;
+            unsigned int sign: 1;
+            }intt;
+
+
+        };
+
+    };
+
+
+
+int main()
+{
+
+    struct FLOAT f;
+    float num = 0;
+    printf("Enter number: ");
+    scanf("%f", &num);
+
+
+
+    f.fValue = num;
+
+
+
+    char mantisa[24];
+    char exponent[9];
+
+
+    for(int i = 0; i < 23; i++) {
+    mantisa[i] = 1&(f.intt.mantisa >> i);
+    if(i <= 7) {
+        exponent[i] = 1&(f.intt.exponent>>i);
+    }
+
+    if(i == 8) {
+        exponent[i] = '\0';
+    }
+
+
+    if(i == 22){
+        mantisa[i + 1] = '\0';
+    }
+    }
+
+
+
+    printf("The floating number in bits is: %d", f.intt.sign);
+
+
+    for(int i = 23; i > 0 ; i-- ) {
+        printf("%d", mantisa[i]);
+    }
+
+    for(int i = 8; i > 0; i--) {
+        printf("%d", exponent[i]);
+    }
+
+
+
+    return 0;
+
+}
